@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontSize: 12.0)
         )
       ),
-      home: TabsScreen(),
+      home: TabScreen(),
     );
   }
 }

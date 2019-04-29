@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TabsScreen extends StatelessWidget {
-  textStyle() {
-    return new TextStyle(color: Colors.white, fontSize: 30.0);
-  }
+class TabScreen extends StatefulWidget {
+  @override
+  _TabScreenState createState() => _TabScreenState();
+}
 
+class _TabScreenState extends State<TabScreen> with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  int _currentTab = 0;
+//  List<Widget> _listItems = [];
   List<Widget> _buildList() {
     List<Map<String, String>> list = [
       {
@@ -54,57 +58,89 @@ class TabsScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('TabBar'),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-//                icon: Icon(Icons.android),
-                text: 'Hours',
-              ),
-              Tab(
-                text: 'Projects',
-              ),
-              Tab(
-                text: 'Tickets'
-              )
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            new Container(
-//              color: Colors.deepOrangeAccent,
-              child: ListView(
-                children: _buildList()
-              )
-            ),
-            new Container(
-              color: Colors.blueGrey,
-              child: new Center(
-                child: new Text(
-                  "Second",
-                  style: textStyle(),
-                ),
-              ),
-            ),
-            new Container(
-              color: Colors.teal,
-              child: new Center(
-                child: new Text(
-                  "Third",
-                  style: textStyle(),
-                ),
-              ),
-            ),
-          ]),
-        ),
-      );
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_handleTabSelection);
   }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  _textStyle() {
+    return new TextStyle(color: Colors.white, fontSize: 30.0);
+  }
+
+  _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      return;
+    }
+    print('TabController index: ${_tabController.index}');
+    setState(() {
+      _currentTab = _tabController.index;
+    });
+  }
+
+  List<Widget> _showTabBarActions() {
+    return _currentTab == 0 ? [Icon(Icons.android)] : [];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TabBar'),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: <Widget>[
+            Tab(
+//                icon: Icon(Icons.android),
+              text: 'People',
+            ),
+            Tab(
+              text: 'Projects',
+            ),
+            Tab(
+              text: 'Tickets'
+            )
+          ],
+        ),
+        actions: _showTabBarActions()
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          new Container(
+//              color: Colors.deepOrangeAccent,
+            child: ListView(
+              children: _buildList()
+            )
+          ),
+          new Container(
+            color: Colors.blueGrey,
+            child: new Center(
+              child: new Text(
+                "Second",
+                style: _textStyle(),
+              ),
+            ),
+          ),
+          new Container(
+            color: Colors.teal,
+            child: new Center(
+              child: new Text(
+                "Third",
+                style: _textStyle(),
+              ),
+            ),
+          ),
+        ]),
+    );
+  }
+
 }
 
 class ListItem extends StatelessWidget {

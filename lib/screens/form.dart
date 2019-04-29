@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class FormScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   final _formData = {
@@ -96,11 +96,19 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
 
-
-              RaisedButton(
-                child: Text('Save'),
-                onPressed: _handleForm,
-                // textColor: Colors.white,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: 150.0,
+                    height: 45.0,
+                    child: RaisedButton(
+                      child: Text('Save'),
+                      onPressed: _handleForm,
+                      // textColor: Colors.white,
+                    ),
+                  ),
+                ],
               )
             ],
             ),

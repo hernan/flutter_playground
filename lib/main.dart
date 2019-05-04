@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-//import 'package:carambula/screens/form.dart';
+import 'package:carambula/screens/home.dart';
 import 'package:carambula/screens/tabs.dart';
-//import 'package:carambula/screens/popup.dart';
+import 'package:carambula/screens/popup.dart';
+import 'package:carambula/screens/form.dart';
 
 void main() {
   // SystemChrome.setSystemUIOverlayStyle(
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.lightGreen[800],
-        accentColor: Colors.purple[400],
+        accentColor: Colors.lightGreen[400],
         buttonTheme: ButtonThemeData(
 //          minWidth: 100,
           buttonColor: Colors.deepOrange[600],
@@ -37,7 +38,13 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontSize: 12.0)
         )
       ),
-      home: TabScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/form': (context) => FormScreen(),
+        '/tabs': (context) => TabScreen(),
+        '/popup': (context) => PopupScreen()
+      },
     );
   }
 }

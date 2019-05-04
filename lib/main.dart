@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 //import 'package:carambula/screens/form.dart';
 import 'package:carambula/screens/tabs.dart';
+//import 'package:carambula/screens/popup.dart';
 
 void main() {
   // SystemChrome.setSystemUIOverlayStyle(
@@ -24,15 +25,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.lightGreen[800],
-        accentColor: Colors.amber[600],
+        accentColor: Colors.purple[400],
         buttonTheme: ButtonThemeData(
 //          minWidth: 100,
           buttonColor: Colors.deepOrange[600],
           textTheme: ButtonTextTheme.primary
         ),
         textTheme: TextTheme(
-          headline: TextStyle(fontSize: 72.0),
-          title: TextStyle(fontSize: 36.0),
+          headline: TextStyle(fontSize: 32.0),
+          title: TextStyle(fontSize: 18.0),
           body1: TextStyle(fontSize: 12.0)
         )
       ),

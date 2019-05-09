@@ -91,10 +91,12 @@ class _TabScreenState extends State<TabScreen> with SingleTickerProviderStateMix
         return ListForm();
       }
     );
-//    print('result $result');
-    setState(() {
-      _listItems.add(result);
-    });
+
+    if (result != null) {
+      setState(() {
+        _listItems.add(result);
+      });
+    }
   }
 
   List<Widget> _showTabBarActions() {
@@ -173,7 +175,12 @@ class ListItem extends StatelessWidget {
   }
 }
 
-class ListForm extends StatelessWidget {
+class ListForm extends StatefulWidget {
+  @override
+  _ListFormState createState() => _ListFormState();
+}
+
+class _ListFormState extends State<ListForm> {
   final _listFormKey = GlobalKey<FormState>();
   final Map<String, String> _formData = {
     'name': '',
@@ -194,27 +201,29 @@ class ListForm extends StatelessWidget {
       title: Text('New Item'),
       content: Form(
         key: _listFormKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Name',
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                ),
+                validator: _validator,
+                onSaved: (value) => _formData['name'] = value,
               ),
-              validator: _validator,
-              onSaved: (value) => _formData['name'] = value,
-            ),
-            SizedBox(height: 20),
+              SizedBox(height: 20),
 
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Description'
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Description'
+                ),
+                validator: _validator,
+                onSaved: (value) => _formData['description'] = value,
               ),
-              validator: _validator,
-              onSaved: (value) => _formData['description'] = value,
-            ),
-            SizedBox(height: 20),
-          ]
+              SizedBox(height: 20),
+            ]
+          ),
         ),
       ),
       actions: [

@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(context, '/tabs')),
             HomeButton(
               icon: Icons.bookmark,
-              onPressed: () => Navigator.pushNamed(context, 'form')),
+              onPressed: () => Navigator.pushNamed(context, '/form')),
           ],
         ),
       ),
